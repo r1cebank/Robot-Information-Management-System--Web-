@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>FIRST Robotics Team 348's Logomotion Score Calculator</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script type="text/javascript" src="./jquery.rightClick.js"></script>
+    <script language="javascript" src="./scoring.js"></script>
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <style type="text/css">
+      body {
+         background-color: black;
+         color: lightgray;
+      }
+      img {
+         padding: 5px;
+      }
+      h1 {
+         color: lightgray;
+      }
+      h2 {
+         margin-top: 0px;
+      }
+      .peg {
+         color: white;
+	 background-color: black;
+         border: 0px solid gray;
+         width: 100px;
+         height: 100px;
+         margin: 5px;
+         float: left;
+         cursor: pointer;
+      }
+      .row {
+	 background-color: black;
+         display: block;
+         float: left;
+      }
+      .minibot {
+         text-position: center;
+         padding: 10px;
+         border: 2px solid dimgray;
+         background-color: black;
+         color: lightgray;
+         cursor: pointer;
+         -moz-user-select: none;
+         -khtml-user-select: none;
+         -webkit-user-select: none;
+         user-select: none;
+      }
+      .active {
+         background-color: dimgray;
+      }
+      .tube {
+         position: absolute;
+         margin: 0px;
+         cursor: pointer;
+         padding: 0px;
+         z-index: 99;
+      }
+      .wide-penalty {
+         float: left;
+         width: 130px;
+         text-align: center;
+         border: 2px solid dimgray;
+         cursor: pointer;
+         -moz-user-select: none;
+         -khtml-user-select: none;
+         -webkit-user-select: none;
+         user-select: none;
+      }
+      .wide-penalty:hover {
+         background: dimgray;
+      }
+      .narrow-penalty {
+         float: left;
+         width: 60px;
+         text-align: center;
+         border: 2px solid dimgray;
+         cursor: pointer;
+         -moz-user-select: none;
+         -khtml-user-select: none;
+         -webkit-user-select: none;
+         user-select: none;
+      }
+      .narrow-penalty:hover {
+         background: dimgray;
+      }
+      #penalty {
+         float: left;
+         width: 190px;
+         text-align: center;
+         color: lightgray;
+         font-weight: bold;
+         font-size: 16pt;
+         background: dimgray;
+         border: 4px solid dimgray;
+      }
+      #wrapper {
+         width: 744px;
+         margin: auto;
+         margin-top: -10px;
+      }
+      #pegs {
+         float: left;
+         margin: auto;
+         margin-top: 15px;
+      }
+      #race {
+         float: left;
+         width: 200px;
+         height: 222px;
+         margin: 10px;
+      }
+      #bin {
+         float: left;
+         width: 238px;
+         height: 100px;      
+         margin: 10px;
+         border: 8px dimgray solid;
+         padding: 55px 25px;
+      }
+      #scores {
+         float: left;
+         width: 200px;
+         height: 252px;
+         color: lightgray;
+         display: block;
+      }
+      #errors {
+         color: red;
+      }
+      #instructions {
+         margin: auto;
+         max-width: 600px;
+      }
+      #subtitle {
+         margin-top: -1em;
+         margin-bottom: 1em;
+      }
+      .hidden {
+         display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preload" class="hidden">
+      <img src="blank.png"/>
+      <img src="none.png"/>
+      <img src="triangle.png"/>
+      <img src="circle.png"/>
+      <img src="square.png"/>
+      <img src="uber_none.png"/>
+      <img src="uber_triangle.png"/>
+      <img src="uber_circle.png"/>
+      <img src="uber_square.png"/>
+    </div>
+      <center>
+	<h1>FIRST Robotics Team 348's Logomotion Score Calculator</h1>
+	<div id="subtitle"><a href="http://norwellrobotics.com/">Team 348 web site</a> &mdash; Thanks to team 103 for <a href="http://www.chiefdelphi.com/forums/showthread.php?t=88417&highlight=score+java">the idea</a></div>
+      </center>
+    <div id="wrapper">
+      <div id="pegs">
+        <div class="row" id="top"></div>
+	<div class="row" id="middle"></div>
+	<div class="row" id="bottom"></div>
+      </div>
+      <div id="race">
+	<center><h2>Race</h2></center>
+      </div>
+      <div id="bin">
+      </div>
+      <div id="penalties">
+	<center><h2>Penalties</h2></center>
+	<input id="penalty" onchange="handlePenaltyChange()" value="0" type="text"/>
+	<div onclick="changePenalties(1)"
+	     class="wide-penalty">+1</div>
+	<div onclick="changePenalties(10)"
+	     class="narrow-penalty">+10</div>
+	<div onclick="changePenalties(-1)"
+	     class="wide-penalty">-1</div>
+	<div onclick="changePenalties(-10)"
+	     class="narrow-penalty">-10</div>
+      </div>
+      <div id="scores">
+	Autonomous score: <span id="auton-score">0</span><br/>
+	Teleop score: <span id="teleop-score">0</span><br/>
+	Race score: <span id="race-score">0</span><br/>
+	Penalties: <span id="penalty-score">0</span><br/>
+	<b>Total score: <span id="score">0</span></b>
+	<div id="errors"></div>
+      </div>
+    </div>
+    <div id="instructions">
+      <b>Usage:</b>
+      <ul>
+	<li>Left click on a peg to cycle through the three normal tubes: triangle, circle and square. </li>
+	<li>Drag the yellow ubertubes from the bin onto the pegs to place them. You can drag them off to remove them.</li>
+	<li>Click the race buttons to toggle whether or not you won a race.</li>
+	<li>Your score should appear in the lower right hand corner.</li>
+      </ul>
+      <p>If none of this makes sense to you, you should check <a href="http://www.usfirst.org/roboticsprograms/frc/default.aspx?id=966">FIRST robotics.</a></p>
+      <p>If you have issues on a touch screen device, <a href="http://norwellrobotics.com/calculator/old/">the old version</a> may be more accessible. I'm working on making this one work just as well.</p>
+    </div>
+    <script language="javascript">
+      $(document).ready(function() {
+          main();
+      })</script>
+  </body>
+</html>

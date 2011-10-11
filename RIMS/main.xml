@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<team>
+	<number>3792</number>
+	<name>The army ants</name>
+	<picture>01.jpg</picture>
+  <driver_pic>02.jpg</driver_pic>
+  <shirt_pic>03.jpg</shirt_pic>
+	<url>http://www.armyants.us</url>
+	<about>Rookie team sponsored by JCPenny</about>
+	<robot>
+		<wheel>Mecamun 4-Wheel Drive</wheel>
+		<center_of_gravity>LOW</center_of_gravity>
+    <weight>119.6</weight>
+		<other_detail>
+		Can not pick up from ground,
+		Minibot deployment works 5/10
+		</other_detail>
+	</robot>
+	<language>LabView</language>
+	<programmer>Experienced</programmer>
+	<driver>Experienced</driver>
+	<control>2 Joysticks</control>
+	<match_performance>
+		<match>
+			<number>32</number>
+      <auto>1</auto>
+      <auto_score>1</auto_score>
+      <penalty>0</penalty>
+			<score>43</score>
+			<win>TRUE</win>
+			<performance>
+			Minibot deployed successfully
+			</performance>
+      <scoring_grid>
+        0.2.0;4.0.1;5.0.2;6.0.2
+      </scoring_grid>
+		</match>
+	</match_performance>
+	<parts_broken>
+	Mast,Minibot
+	</parts_broken>
+	<smart_match>
+		<auto>0.35714</auto>
+		<tele>1</tele>
+		<efficency>1</efficency>
+		<awards>3</awards>
+		<rank>6</rank>
+		<score>140</score>
+		<penalty>0.272727</penalty>
+		<potential>0.90909</potential>
+		<veteran>FALSE</veteran>
+		<human_player>TRUE</human_player>
+		<rolling_chassis>FALSE</rolling_chassis>
+		<defense>0.285714</defense>
+		<wins>8</wins>
+		<loses>6</loses>
+		<friendly>TRUE</friendly> <!--Friendly equals eval/evaltotal-->
+		<broken>FALSE</broken>
+	</smart_match>
+	<game_specific>
+		<name>Logomotion</name>
+    <y>1</y>
+		<minibot>TRUE</minibot>
+    <minibot_speed>2</minibot_speed>
+    <feeding>Hand</feeding>
+		<minibot_score>0.357</minibot_score>
+	</game_specific>
+  <driveteam_eval>
+    <evaluation>1</evaluation>
+  </driveteam_eval>
+</team>
